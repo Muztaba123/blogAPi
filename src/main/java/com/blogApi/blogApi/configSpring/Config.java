@@ -51,9 +51,11 @@ public class Config extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/USERCRI/**").permitAll()
                 .antMatchers("/auth/sigUp/**").permitAll()
+                .antMatchers("/post/getAllPosts/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();
     }
+
 }

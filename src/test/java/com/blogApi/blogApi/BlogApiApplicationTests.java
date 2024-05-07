@@ -3,8 +3,10 @@ package com.blogApi.blogApi;
 import com.blogApi.blogApi.entities.Post;
 import com.blogApi.blogApi.payload.PostDto;
 import com.blogApi.blogApi.payload.Role;
+import com.blogApi.blogApi.payload.SignUpDto;
 import com.blogApi.blogApi.payload.User;
 import com.blogApi.blogApi.repositroy.PostReposetroy;
+import com.blogApi.blogApi.repositroy.RoleRepostroy;
 import com.blogApi.blogApi.repositroy.UserRepose;
 import com.blogApi.blogApi.service.impl.PostService;
 import org.junit.jupiter.api.Assertions;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -30,6 +33,9 @@ class BlogApiApplicationTests {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private RoleRepostroy roleRepostroy;
 
 	@Test
 	void contextLoads() {
@@ -69,8 +75,27 @@ class BlogApiApplicationTests {
 		Assertions.assertNotNull(save);
 	}
 
-	void checkUser()
+
+
+
+	//@Test
+	void singUp()
 		{
+			SignUpDto dto=new SignUpDto();
+			dto.setEmail("kijuhgfv");
+			dto.setName("polkijuhygft");
+			dto.setUsername("lokijhugfvcx");
+			dto.setPassword(passwordEncoder.encode("poljuhygtflkjhg"));
+			User user=new User();
+			user.setEmail(dto.getEmail());
+			user.setName(dto.getName());
+			user.setUsername(dto.getUsername());
+			user.setPassword(passwordEncoder.encode(dto.getPassword()));
+			Role role = roleRepostroy.findByName("ROLE_ADMIN").get();
+			user.setRoles(Collections.singleton(role));
+
+			userRepose.save(user);
+
 
 		}
 
